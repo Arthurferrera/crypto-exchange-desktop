@@ -108,15 +108,6 @@ public class FrmUsuarios extends JFrame {
 		btnVoltar.setBounds(375, 20, 100, 40);
 		painelBotoes.add(btnVoltar);
 		
-		// eventos de botoes
-		btnVoltar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				setVisible(false);
-				FrmDashboard dash = new FrmDashboard(idUsuario);
-				dash.setVisible(true);
-			}
-		});
-		
 		JPanel painelDetalhes = new JPanel();
 		tabbedPane.addTab("Detalhes do Usuário", null, painelDetalhes, null);
 		painelDetalhes.setLayout(null);
@@ -145,11 +136,11 @@ public class FrmUsuarios extends JFrame {
 		txtEmail.setColumns(10);
 		
 		JLabel lblSenha = new JLabel("Senha");
-		lblSenha.setBounds(17, 104, 61, 16);
+		lblSenha.setBounds(152, 84, 61, 16);
 		painelDados.add(lblSenha);
 		
 		txtSenha = new JPasswordField();
-		txtSenha.setBounds(70, 99, 168, 26);
+		txtSenha.setBounds(152, 102, 168, 26);
 		painelDados.add(txtSenha);
 		
 		JPanel painelBotoesD = new JPanel();
@@ -179,11 +170,40 @@ public class FrmUsuarios extends JFrame {
 		
 		montarTabela();
 		
+		// eventos de botoes
+		btnVoltar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				setVisible(false);
+				FrmDashboard dash = new FrmDashboard(idUsuario);
+				dash.setVisible(true);
+			}
+		});
+		
 		btnNovo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				tabbedPane.setSelectedIndex(1);
 				lblStatus.setText("Cadastrar");
 				limparCampos();
+			}
+		});
+		
+		btnEditar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int linha = tabUsuarios.getSelectedRow();
+				if(linha >=0){
+					lblStatus.setText("Update");
+					tabbedPane.setSelectedIndex(1);
+				}else{
+					JOptionPane.showMessageDialog(null, "Por favor, selecione um usuário");
+				}
+			}
+		});
+		
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				limparCampos();
+				lblStatus.setText("Cadastrar");
+				tabbedPane.setSelectedIndex(0);
 			}
 		});
 		
@@ -228,6 +248,7 @@ public class FrmUsuarios extends JFrame {
 		
 		tabModel = new DefaultTableModel();
 		tabUsuarios = new JTable(tabModel);
+		tabUsuarios.setRowSelectionAllowed(false);
 		
 		tabModel.addColumn("ID");
 		tabModel.addColumn("Nome");
@@ -237,15 +258,11 @@ public class FrmUsuarios extends JFrame {
 		tabUsuarios.getColumnModel().getColumn(0).setPreferredWidth(0);  
 		tabUsuarios.getColumnModel().getColumn(0).setMaxWidth(0);
 		
-
-		
-		
 		for (Usuario usuario: usuarios){
 			System.out.println(usuario.getUsuario());
 			tabModel.addRow(new Object[]{usuario.getId(),usuario.getUsuario(), usuario.getEmail()});
 		}
 		scrollPane.setViewportView(tabUsuarios);
-		
 		tabUsuarios.addMouseListener(new MouseListener() {
 			
 			@Override
