@@ -191,7 +191,7 @@ public class FrmUsuarios extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				int linha = tabUsuarios.getSelectedRow();
 				if(linha >=0){
-					lblStatus.setText("Update");
+					lblStatus.setText("Atualizar Dados");
 					tabbedPane.setSelectedIndex(1);
 				}else{
 					JOptionPane.showMessageDialog(null, "Por favor, selecione um usuário");
@@ -224,12 +224,11 @@ public class FrmUsuarios extends JFrame {
 					UsuarioDAO usuarioDAO = new UsuarioDAO();
 					if(lblStatus.getText() == "Cadastrar"){
 						usuarioDAO.cadastrar(usuario);
+					} else if(lblStatus.getText() == "Atualizar Dados"){
+						usuario.setId(tabUsuarios.getValueAt(tabUsuarios.getSelectedRow(), 0).toString());
+						usuarioDAO.editar(usuario);
+						lblStatus.setText("Cadastrar");
 					}
-		//				else if(lblStatus.getText() == "Update"){
-		//					usuario.setId(tabUsuarios.getValueAt(tabUsuarios.getSelectedRow(), 0).toString());
-		//					usuarioDAO.editar(usuario);
-		//					lblStatus.setText("Insert");
-		//				}
 					tabbedPane.setSelectedIndex(0);
 					limparCampos();
 					montarTabela();

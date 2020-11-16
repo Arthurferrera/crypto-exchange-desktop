@@ -89,4 +89,28 @@ public class UsuarioDAO {
 			e.printStackTrace();
 		}
 	}
+
+	public void editar(Usuario usuario){
+		String sql = "UPDATE usuarios SET usuario = ?, email = ?, senha = ? WHERE id = ? ";
+		
+		try {
+			PreparedStatement stm = con.prepareStatement(sql);
+			stm.setString(1, usuario.getUsuario());
+			stm.setString(2, usuario.getEmail());
+			stm.setString(3, usuario.getSenha());
+			stm.setString(4, usuario.getId());
+			
+			if(stm.execute()) {
+				JOptionPane.showMessageDialog(null, "Não foi possivel editar!");
+			} else {
+				JOptionPane.showMessageDialog(null, "Dados alterados com sucesso!");
+			}
+			ConnectionFactory.closeConnection();
+			
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }
