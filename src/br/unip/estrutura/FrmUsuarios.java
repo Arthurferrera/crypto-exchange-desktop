@@ -236,6 +236,29 @@ public class FrmUsuarios extends JFrame {
 				
 			}
 		});
+		
+		btnExcluir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				int linha = tabUsuarios.getSelectedRow();
+				if(linha >=0){
+					Usuario usuario = new Usuario();
+					usuario.setId(tabUsuarios.getValueAt(tabUsuarios.getSelectedRow(), 0).toString());
+					
+					int resp = JOptionPane.showConfirmDialog(null, "Deseja realmente excluir este usuário ?");
+					
+					if(resp == 0){
+						UsuarioDAO usuarioDAO = new UsuarioDAO();
+						usuarioDAO.excluir(usuario);
+					}
+					
+					
+					montarTabela();
+				}else{
+					JOptionPane.showMessageDialog(null, "Selecione um usuário para excluir!");
+				}
+				
+			}
+		});
 	}
 
 	//M�TODOS  ESSENCIAIS

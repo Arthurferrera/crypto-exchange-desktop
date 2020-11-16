@@ -113,4 +113,23 @@ public class UsuarioDAO {
 			e.printStackTrace();
 		}
 	}
+
+	public void excluir(Usuario usuario){
+		String sql = "DELETE FROM usuarios WHERE id = ?";
+		
+		try {
+			PreparedStatement stm = con.prepareStatement(sql);
+			stm.setString(1, usuario.getId());
+			
+			if(stm.execute()) {
+				JOptionPane.showMessageDialog(null, "Ocorreu um erro ao tentar excluir o usuário!");
+			} else {
+				JOptionPane.showMessageDialog(null, "Usuário excluído!");
+			}
+			ConnectionFactory.closeConnection();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+	}
 }
