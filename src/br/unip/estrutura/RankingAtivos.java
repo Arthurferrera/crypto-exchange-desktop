@@ -54,19 +54,21 @@ public class RankingAtivos extends JFrame {
 		
 		JPanel painelTabela = new JPanel();
 		painelTabela.setLayout(null);
-		painelTabela.setBorder(new TitledBorder(null, "Clientes", TitledBorder.LEADING, TitledBorder.TOP, null, Color.BLUE));
+		painelTabela.setBorder(null);
 		painelTabela.setBounds(10, 11, 473, 183);
 		painelLista.add(painelTabela);
 		
-		JScrollPane scrollRanking = new JScrollPane();
-		scrollRanking.setBounds(10, 21, 454, 150);
-		painelTabela.add(scrollRanking);
+		scrollPane = new JScrollPane();
+		scrollPane.setBounds(10, 6, 454, 165);
+		painelTabela.add(scrollPane);
 		
 		tabModel = new DefaultTableModel();
 		table = new JTable(tabModel);
+		table.setEnabled(false);
 		table.setRowSelectionAllowed(false);
-		table.setBounds(0, 0, 450, 1);
-		painelTabela.add(table);
+		
+//		table.setBounds(0, 0, 450, 1);
+//		spainelTabela.add(table);
 		
 		tabModel.addColumn("Nome Ativo");
 		tabModel.addColumn("Quantidade de investimentos");
@@ -110,7 +112,7 @@ public class RankingAtivos extends JFrame {
 			tabModel.addRow(new Object[]{rank.getName(),rank.getQuantidade()});
 		}
 		
-		scrollRanking.setViewportView(table);
+		scrollPane.setViewportView(table);
 		
 		// eventos de botoes
 		btnVoltar.addActionListener(new ActionListener() {

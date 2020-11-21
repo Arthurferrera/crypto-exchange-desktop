@@ -89,7 +89,7 @@ public class FrmDashboard extends JFrame {
 			}
 		});
 		
-		JMenu mnRelatorios = new JMenu("Relatorios");
+		JMenu mnRelatorios = new JMenu("Relátorios");
 		menuBar.add(mnRelatorios);
 		
 		JMenuItem mntmAtivosMaisOperados = new JMenuItem(new AbstractAction("Ranking de Ativos") {
