@@ -41,6 +41,7 @@ public class FrmUsuarios extends JFrame {
 	private JPasswordField txtSenha;
 	
 	public FrmUsuarios(int idUsuario) {
+		setResizable(false);
 		setTitle("Crypto Echange");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 532, 450);

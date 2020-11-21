@@ -22,6 +22,8 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
+import javax.swing.AbstractAction;
 import javax.swing.ImageIcon;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.LineBorder;
@@ -86,6 +88,25 @@ public class FrmDashboard extends JFrame {
 				}
 			}
 		});
+		
+		JMenu mnRelatorios = new JMenu("Relatorios");
+		menuBar.add(mnRelatorios);
+		
+		JMenuItem mntmAtivosMaisOperados = new JMenuItem(new AbstractAction("Ranking de Ativos") {
+		    /**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			public void actionPerformed(ActionEvent e) {
+		        // Button pressed logic goes here
+				setVisible(false);
+				RankingAtivos rankingAtivos = new RankingAtivos();
+				rankingAtivos.setVisible(true);
+		    }
+		});
+		
+		mnRelatorios.add(mntmAtivosMaisOperados);
 		menuBar.add(mnLogout);
 		
 		JPanel panel = new JPanel();

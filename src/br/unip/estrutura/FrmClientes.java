@@ -45,6 +45,7 @@ public class FrmClientes extends JFrame {
 	private JTextField txtCelular;
 	
 	public FrmClientes(int idCliente) {
+		setResizable(false);
 		setTitle("Crypto Echange");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 532, 450);
