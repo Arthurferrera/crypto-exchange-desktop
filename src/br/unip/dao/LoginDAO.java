@@ -30,11 +30,6 @@ public class LoginDAO {
 			if(rs.next()) {
 				id = rs.getInt("id");
 			}
-//			while(rs.next()) {
-//				login.setEmail(rs.getString("email"));
-//				login.setSenha(rs.getString("senha"));
-//				logado = stm.execute();
-//			}
 			
 			if(id != 0) {
 				JOptionPane.showMessageDialog(null, "Seja Bem Vindo !!");
@@ -46,6 +41,7 @@ public class LoginDAO {
 			stm.close();
 			ConnectionFactory.closeConnection();
 		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null,"Erro ao tentar realizar o login");
 			e.printStackTrace();
 		}
 		

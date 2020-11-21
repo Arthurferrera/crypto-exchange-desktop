@@ -21,8 +21,12 @@ public class ConnectionFactory {
 			Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 			con = DriverManager.getConnection(URL, "sa", "Do123456ck");
 		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null,"Ocorreu um erro na tentativa de conectar com o banco!",
+					"Erro",JOptionPane.ERROR_MESSAGE);
 			System.out.println("1"+e.getMessage());
 		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null,"Ocorreu um erro na tentativa de conectar com o banco!",
+					"Erro",JOptionPane.ERROR_MESSAGE);
 			System.out.println("Não foi possível conectar ao banco "+e.getMessage());
 		}
 		return con;

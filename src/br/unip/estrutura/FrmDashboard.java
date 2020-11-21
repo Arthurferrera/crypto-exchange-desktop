@@ -106,7 +106,22 @@ public class FrmDashboard extends JFrame {
 		    }
 		});
 		
+		JMenuItem mntmInvestimentosPorRegiao = new JMenuItem(new AbstractAction("Ranking por Região") {
+		    /**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			public void actionPerformed(ActionEvent e) {
+		        // Button pressed logic goes here
+				setVisible(false);
+				RankingRegiao rankingRegiao = new RankingRegiao();
+				rankingRegiao.setVisible(true);
+		    }
+		});
+		
 		mnRelatorios.add(mntmAtivosMaisOperados);
+		mnRelatorios.add(mntmInvestimentosPorRegiao);
 		menuBar.add(mnLogout);
 		
 		JPanel panel = new JPanel();

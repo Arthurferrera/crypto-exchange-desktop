@@ -28,7 +28,7 @@ import java.awt.Font;
 import javax.swing.JList;
 import javax.swing.table.TableModel;
 
-public class RankingAtivos extends JFrame {
+public class RankingRegiao extends JFrame {
 	
 	private JPanel contentPane;
 	private JScrollPane scrollPane;
@@ -36,7 +36,7 @@ public class RankingAtivos extends JFrame {
 	private JTable tabRanking;
 	private JTable table;
 	
-	public RankingAtivos() {
+	public RankingRegiao() {
 		setResizable(false);
 		setTitle("Crypto Exchange");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -78,14 +78,17 @@ public class RankingAtivos extends JFrame {
 		panel.setBounds(6, 6, 520, 44);
 		contentPane.add(panel);
 		
-		JLabel lblNewLabel = new JLabel("Ranking de Ativos");
+		JLabel lblNewLabel = new JLabel("Ranking de investimentos por região");
 		lblNewLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		panel.add(lblNewLabel);
+		
 		
 		// buscando dados dos relatórios
 		RelatoriosDAO rankingDAO = new RelatoriosDAO(); 
 		ArrayList<RankkingAtivos> ranking = new ArrayList<>();  
 		ranking = rankingDAO.rankingAtivos();
+		
+		
 		
 		for (RankkingAtivos rank: ranking){
 			tabModel.addRow(new Object[]{rank.getName(),rank.getQuantidade()});
