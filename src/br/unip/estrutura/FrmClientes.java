@@ -9,8 +9,8 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
-import br.unip.dao.UsuarioDAO;
-import br.unip.model.Usuario;
+import br.unip.dao.ClienteDAO;
+import br.unip.model.Cliente;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -30,17 +30,21 @@ import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
 
-public class FrmUsuarios extends JFrame {
+public class FrmClientes extends JFrame {
 	
 	private JPanel contentPane;
 	private JScrollPane scrollPane;
 	private DefaultTableModel tabModel;
-	private JTable tabUsuarios;
+	private JTable tabClientes;
 	private JTextField txtNome;
 	private JTextField txtEmail;
-	private JPasswordField txtSenha;
+	private JTextField txtSobrenome;
+	private JTextField txtCidade;
+	private JTextField txtEstado;
+	private JTextField txtDataNascimento;
+	private JTextField txtCelular;
 	
-	public FrmUsuarios(int idUsuario) {
+	public FrmClientes(int idCliente) {
 		setTitle("Crypto Echange");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 532, 450);
@@ -56,10 +60,10 @@ public class FrmUsuarios extends JFrame {
 		panelTitulo.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 25));
 		
 		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setIcon(new ImageIcon(FrmUsuarios.class.getResource("/br/unip/imagens/login48.png")));
+		lblNewLabel.setIcon(new ImageIcon(FrmClientes.class.getResource("/br/unip/imagens/login48.png")));
 		panelTitulo.add(lblNewLabel);
 		
-		JLabel lblTitulo = new JLabel("Módulo de Usuários");
+		JLabel lblTitulo = new JLabel("Módulo de Clientes");
 		lblTitulo.setFont(new Font("Lucida Grande", Font.PLAIN, 24));
 		panelTitulo.add(lblTitulo);
 		
@@ -68,11 +72,11 @@ public class FrmUsuarios extends JFrame {
 		contentPane.add(tabbedPane);
 		
 		JPanel painelLista = new JPanel();
-		tabbedPane.addTab("Lista de Usuários", null, painelLista, null);
+		tabbedPane.addTab("Lista de Clientes", null, painelLista, null);
 		painelLista.setLayout(null);
 		
 		JPanel painelTabela = new JPanel();
-		painelTabela.setBorder(new TitledBorder(null, "Usuários", TitledBorder.LEADING, TitledBorder.TOP, null, Color.BLUE));
+		painelTabela.setBorder(new TitledBorder(null, "Clientes", TitledBorder.LEADING, TitledBorder.TOP, null, Color.BLUE));
 		painelTabela.setBounds(10, 11, 473, 183);
 		painelLista.add(painelTabela);
 		painelTabela.setLayout(null);
@@ -87,20 +91,20 @@ public class FrmUsuarios extends JFrame {
 		painelLista.add(painelBotoes);
 		
 		JButton btnNovo = new JButton("");
-		btnNovo.setToolTipText("Clique para adicionar um usuáio");
-		btnNovo.setIcon(new ImageIcon(FrmUsuarios.class.getResource("/br/unip/imagens/add32.png")));
+		btnNovo.setToolTipText("Clique para adicionar um cliente");
+		btnNovo.setIcon(new ImageIcon(FrmClientes.class.getResource("/br/unip/imagens/add32.png")));
 		btnNovo.setBounds(10, 17, 51, 49);
 		painelBotoes.add(btnNovo);
 		
 		JButton btnExcluir = new JButton("");
-		btnExcluir.setToolTipText("Clique para excluir um usuário");
-		btnExcluir.setIcon(new ImageIcon(FrmUsuarios.class.getResource("/br/unip/imagens/excluir32.png")));
+		btnExcluir.setToolTipText("Clique para excluir um cliente");
+		btnExcluir.setIcon(new ImageIcon(FrmClientes.class.getResource("/br/unip/imagens/excluir32.png")));
 		btnExcluir.setBounds(75, 17, 51, 49);
 		painelBotoes.add(btnExcluir);
 		
 		JButton btnEditar = new JButton("");
-		btnEditar.setToolTipText("Clique para editar um usuário");
-		btnEditar.setIcon(new ImageIcon(FrmUsuarios.class.getResource("/br/unip/imagens/editar32.png")));
+		btnEditar.setToolTipText("Clique para editar um cliente");
+		btnEditar.setIcon(new ImageIcon(FrmClientes.class.getResource("/br/unip/imagens/editar32.png")));
 		btnEditar.setBounds(144, 17, 51, 49);
 		painelBotoes.add(btnEditar);
 		
@@ -109,7 +113,7 @@ public class FrmUsuarios extends JFrame {
 		painelBotoes.add(btnVoltar);
 		
 		JPanel painelDetalhes = new JPanel();
-		tabbedPane.addTab("Detalhes do Usuário", null, painelDetalhes, null);
+		tabbedPane.addTab("Detalhes do Cliente", null, painelDetalhes, null);
 		painelDetalhes.setLayout(null);
 		
 		JPanel painelDados = new JPanel();
@@ -122,51 +126,88 @@ public class FrmUsuarios extends JFrame {
 		painelDados.add(lblNome);
 		
 		txtNome = new JTextField();
-		txtNome.setBounds(17, 46, 221, 26);
+		txtNome.setBounds(17, 46, 118, 26);
 		painelDados.add(txtNome);
 		txtNome.setColumns(10);
 		
+		JLabel lblSobrenome = new JLabel("Sobrenome");
+		lblSobrenome.setBounds(138, 25, 93, 16);
+		painelDados.add(lblSobrenome);
+		
+		txtSobrenome = new JTextField();
+		txtSobrenome.setColumns(10);
+		txtSobrenome.setBounds(138, 46, 118, 26);
+		painelDados.add(txtSobrenome);
+		
 		JLabel lblEmail = new JLabel("E-mail");
-		lblEmail.setBounds(250, 25, 61, 16);
+		lblEmail.setBounds(260, 25, 61, 16);
 		painelDados.add(lblEmail);
 		
 		txtEmail = new JTextField();
-		txtEmail.setBounds(250, 46, 217, 26);
+		txtEmail.setBounds(260, 46, 207, 26);
 		painelDados.add(txtEmail);
 		txtEmail.setColumns(10);
 		
-		JLabel lblSenha = new JLabel("Senha");
-		lblSenha.setBounds(152, 84, 61, 16);
-		painelDados.add(lblSenha);
+		JLabel lblCidade = new JLabel("Cidade");
+		lblCidade.setBounds(17, 84, 61, 16);
+		painelDados.add(lblCidade);
 		
-		txtSenha = new JPasswordField();
-		txtSenha.setBounds(152, 102, 168, 26);
-		painelDados.add(txtSenha);
+		txtCidade = new JTextField();
+		txtCidade.setColumns(10);
+		txtCidade.setBounds(17, 103, 118, 26);
+		painelDados.add(txtCidade);
 		
-		JPanel painelBotoesD = new JPanel();
-		painelBotoesD.setBounds(6, 14, 473, 53);
-		painelDetalhes.add(painelBotoesD);
-		painelBotoesD.setLayout(null);
+		JLabel lblEstado = new JLabel("Estado");
+		lblEstado.setBounds(138, 87, 93, 16);
+		painelDados.add(lblEstado);
+		
+		txtEstado = new JTextField();
+		txtEstado.setColumns(10);
+		txtEstado.setBounds(138, 103, 118, 26);
+		painelDados.add(txtEstado);
+		
+		JLabel lblDataNasc = new JLabel("Dt. Nasc");
+		lblDataNasc.setBounds(260, 84, 61, 16);
+		painelDados.add(lblDataNasc);
+		
+		txtDataNascimento = new JTextField();
+		txtDataNascimento.setColumns(10);
+		txtDataNascimento.setBounds(260, 103, 90, 26);
+		painelDados.add(txtDataNascimento);
+		
+		JLabel lblCelular = new JLabel("Celular");
+		lblCelular.setBounds(350, 84, 93, 16);
+		painelDados.add(lblCelular);
+		
+		txtCelular = new JTextField();
+		txtCelular.setColumns(10);
+		txtCelular.setBounds(350, 103, 118, 26);
+		painelDados.add(txtCelular);
+		
+		JPanel painelTitulo = new JPanel();
+		painelTitulo.setBounds(6, 14, 473, 53);
+		painelDetalhes.add(painelTitulo);
+		painelTitulo.setLayout(null);
 		
 		JLabel lblStatus = new JLabel("Cadastrar");
 		lblStatus.setFont(new Font("Lucida Grande", Font.PLAIN, 16));
 		lblStatus.setHorizontalAlignment(SwingConstants.CENTER);
 		lblStatus.setForeground(Color.BLUE);
 		lblStatus.setBounds(186, 20, 120, 14);
-		painelBotoesD.add(lblStatus);
+		painelTitulo.add(lblStatus);
 		
-		JPanel painelBotoesD_1 = new JPanel();
-		painelBotoesD_1.setLayout(null);
-		painelBotoesD_1.setBounds(6, 229, 473, 33);
-		painelDetalhes.add(painelBotoesD_1);
+		JPanel painelBotoesTelaCadastro = new JPanel();
+		painelBotoesTelaCadastro.setLayout(null);
+		painelBotoesTelaCadastro.setBounds(6, 229, 473, 33);
+		painelDetalhes.add(painelBotoesTelaCadastro);
 		
 		JButton btnSalvar = new JButton("Salvar");
 		btnSalvar.setBounds(260, 3, 99, 31);
-		painelBotoesD_1.add(btnSalvar);
+		painelBotoesTelaCadastro.add(btnSalvar);
 		
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.setBounds(115, 3, 99, 31);
-		painelBotoesD_1.add(btnCancelar);
+		painelBotoesTelaCadastro.add(btnCancelar);
 		
 		montarTabela();
 		
@@ -174,7 +215,7 @@ public class FrmUsuarios extends JFrame {
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				FrmDashboard dash = new FrmDashboard(idUsuario);
+				FrmDashboard dash = new FrmDashboard(idCliente);
 				dash.setVisible(true);
 			}
 		});
@@ -189,12 +230,12 @@ public class FrmUsuarios extends JFrame {
 		
 		btnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				int linha = tabUsuarios.getSelectedRow();
+				int linha = tabClientes.getSelectedRow();
 				if(linha >=0){
 					lblStatus.setText("Atualizar Dados");
 					tabbedPane.setSelectedIndex(1);
 				}else{
-					JOptionPane.showMessageDialog(null, "Por favor, selecione um usuário");
+					JOptionPane.showMessageDialog(null, "Por favor, selecione um cliente");
 				}
 			}
 		});
@@ -210,23 +251,31 @@ public class FrmUsuarios extends JFrame {
 		btnSalvar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				if(txtNome.getText().equals("")||
-					txtEmail.getText().equals("    ")||
-					txtSenha.getText().equals("  :  ")){
+					txtSobrenome.getText().equals("") || 
+					txtEmail.getText().equals("") || 
+					txtCidade.getText().equals("") || 
+					txtEstado.getText().equals("") || 
+					txtDataNascimento.getText().equals("") || 
+					txtCelular.getText().equals("")){
 					
 					JOptionPane.showMessageDialog(null, "Por Favor, preencha todos os campos!");
 					
 				} else {
-					Usuario usuario = new Usuario();
-					usuario.setUsuario(txtNome.getText());
-					usuario.setEmail(txtEmail.getText());
-					usuario.setSenha(txtSenha.getText());
+					Cliente cliente = new Cliente();
+					cliente.setNome(txtNome.getText());
+					cliente.setSobrenome(txtSobrenome.getText());
+					cliente.setEmail(txtEmail.getText());
+					cliente.setCelular(txtCelular.getText());
+					cliente.setCidade(txtCidade.getText());
+					cliente.setEstado(txtEstado.getText());
+					cliente.setData_nascimento(txtDataNascimento.getText());
 					
-					UsuarioDAO usuarioDAO = new UsuarioDAO();
+					ClienteDAO clienteDAO = new ClienteDAO();
 					if(lblStatus.getText() == "Cadastrar"){
-						usuarioDAO.cadastrar(usuario);
+						clienteDAO.cadastrar(cliente);
 					} else if(lblStatus.getText() == "Atualizar Dados"){
-						usuario.setId(tabUsuarios.getValueAt(tabUsuarios.getSelectedRow(), 0).toString());
-						usuarioDAO.editar(usuario);
+						cliente.setId(tabClientes.getValueAt(tabClientes.getSelectedRow(), 0).toString());
+						clienteDAO.editar(cliente);
 						lblStatus.setText("Cadastrar");
 					}
 					tabbedPane.setSelectedIndex(0);
@@ -239,22 +288,22 @@ public class FrmUsuarios extends JFrame {
 		
 		btnExcluir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				int linha = tabUsuarios.getSelectedRow();
+				int linha = tabClientes.getSelectedRow();
 				if(linha >=0){
-					Usuario usuario = new Usuario();
-					usuario.setId(tabUsuarios.getValueAt(tabUsuarios.getSelectedRow(), 0).toString());
+					Cliente cliente = new Cliente();
+					cliente.setId(tabClientes.getValueAt(tabClientes.getSelectedRow(), 0).toString());
 					
-					int resp = JOptionPane.showConfirmDialog(null, "Deseja realmente excluir este usuário ?");
+					int resp = JOptionPane.showConfirmDialog(null, "Deseja realmente excluir este cliente ?");
 					
 					if(resp == 0){
-						UsuarioDAO usuarioDAO = new UsuarioDAO();
-						usuarioDAO.excluir(usuario);
+						ClienteDAO clienteDAO = new ClienteDAO();
+						clienteDAO.excluir(cliente);
 					}
 					
 					
 					montarTabela();
 				}else{
-					JOptionPane.showMessageDialog(null, "Selecione um usuário para excluir!");
+					JOptionPane.showMessageDialog(null, "Selecione um cliente para excluir!");
 				}
 				
 			}
@@ -263,29 +312,28 @@ public class FrmUsuarios extends JFrame {
 
 	//M�TODOS  ESSENCIAIS
 	public void montarTabela(){
-		ArrayList<Usuario> usuarios = new ArrayList<>();
-		UsuarioDAO usuarioDAO = new UsuarioDAO();
+		ArrayList<Cliente> clientes = new ArrayList<>();
+		ClienteDAO clienteDAO = new ClienteDAO();
 		
-		usuarios = usuarioDAO.listarUsuarios();
+		clientes = clienteDAO.listarClientes();
 		
 		tabModel = new DefaultTableModel();
-		tabUsuarios = new JTable(tabModel);
-		tabUsuarios.setRowSelectionAllowed(false);
+		tabClientes = new JTable(tabModel);
+		tabClientes.setRowSelectionAllowed(false);
 		
 		tabModel.addColumn("ID");
 		tabModel.addColumn("Nome");
 		tabModel.addColumn("E-mail");
 		
-		tabUsuarios.getColumnModel().getColumn(0).setMinWidth(0); 
-		tabUsuarios.getColumnModel().getColumn(0).setPreferredWidth(0);  
-		tabUsuarios.getColumnModel().getColumn(0).setMaxWidth(0);
+		tabClientes.getColumnModel().getColumn(0).setMinWidth(0); 
+		tabClientes.getColumnModel().getColumn(0).setPreferredWidth(0);  
+		tabClientes.getColumnModel().getColumn(0).setMaxWidth(0);
 		
-		for (Usuario usuario: usuarios){
-			System.out.println(usuario.getUsuario());
-			tabModel.addRow(new Object[]{usuario.getId(),usuario.getUsuario(), usuario.getEmail()});
+		for (Cliente cliente: clientes){
+			tabModel.addRow(new Object[]{cliente.getId(),cliente.getNome(), cliente.getEmail()});
 		}
-		scrollPane.setViewportView(tabUsuarios);
-		tabUsuarios.addMouseListener(new MouseListener() {
+		scrollPane.setViewportView(tabClientes);
+		tabClientes.addMouseListener(new MouseListener() {
 			
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
@@ -314,26 +362,34 @@ public class FrmUsuarios extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				String id;
-				id = tabUsuarios.getValueAt(tabUsuarios.getSelectedRow(), 0).toString();
+				id = tabClientes.getValueAt(tabClientes.getSelectedRow(), 0).toString();
 				preencherCampos(id);
 			}
 		});
 	}
 	
 	public void preencherCampos(String id){
-		Usuario usuario = new Usuario();
-		UsuarioDAO usuarioDAO = new UsuarioDAO();
+		Cliente cliente = new Cliente();
+		ClienteDAO clienteDAO = new ClienteDAO();
 		
-		usuario = usuarioDAO.getUsuarioById(id);
+		cliente = clienteDAO.getClienteById(id);
 		
-		txtNome.setText(usuario.getUsuario());
-		txtEmail.setText(usuario.getEmail());
-		txtSenha.setText("");
+		txtNome.setText(cliente.getNome());
+		txtEmail.setText(cliente.getEmail());
+		txtSobrenome.setText(cliente.getSobrenome());
+		txtCidade.setText(cliente.getCidade());
+		txtEstado.setText(cliente.getEstado());
+		txtDataNascimento.setText(cliente.getData_nascimento());
+		txtCelular.setText(cliente.getCelular());
 	}
 	
 	public void limparCampos(){
 		txtNome.setText("");
 		txtEmail.setText("");
-		txtSenha.setText("");
+		txtSobrenome.setText("");
+		txtCidade.setText("");
+		txtEstado.setText("");
+		txtDataNascimento.setText("");
+		txtCelular.setText("");
 	}
 }

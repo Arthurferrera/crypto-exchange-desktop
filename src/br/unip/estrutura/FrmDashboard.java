@@ -63,6 +63,14 @@ public class FrmDashboard extends JFrame {
 		menuBar.add(mnMenuUsuarios);
 		
 		JMenu mnMenuClientes = new JMenu("Clientes");
+		mnMenuClientes.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				setVisible(false);
+				FrmClientes clientes = new FrmClientes(idUsuario);
+				clientes.setVisible(true);
+			}
+		});
 		menuBar.add(mnMenuClientes);
 		
 		JMenu mnLogout = new JMenu("Sair");
