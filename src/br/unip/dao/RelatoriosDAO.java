@@ -75,7 +75,7 @@ public class RelatoriosDAO {
 	}
 	
 	public String rankingDia(String data, Boolean fechar){
-		String ranking = "0";// = new ArrayList<>();
+		String ranking = "0";
 		
 		String sql = "select count(*) as quantidade "
 				+ "from investimentos as i "
@@ -86,15 +86,9 @@ public class RelatoriosDAO {
 			ResultSet rs = stm.executeQuery();
 			
 			while(rs.next()){
-//				RankkingRegiao ativo = new RankkingRegiao();
-//				ativo.setCidade(rs.getString("cidade"));
-//				ativo.setQuantidade(rs.getInt("quantidade"));
 				ranking = rs.getString("quantidade");
-//				ranking.add(ativo);
 			}
 			
-//			rs.close();
-//			stm.close()
 			if(fechar) {				
 				ConnectionFactory.closeConnection();
 			}
@@ -107,7 +101,7 @@ public class RelatoriosDAO {
 	}
 	
 	public String rankingMes(String data, Boolean fechar){
-		String ranking = "0";// = new ArrayList<>();
+		String ranking = "0";
 		
 		String sql = "select count(*) as quantidade "
 				+ "from investimentos as i "
@@ -118,15 +112,9 @@ public class RelatoriosDAO {
 			ResultSet rs = stm.executeQuery();
 			
 			while(rs.next()){
-//				RankkingRegiao ativo = new RankkingRegiao();
-//				ativo.setCidade(rs.getString("cidade"));
-//				ativo.setQuantidade(rs.getInt("quantidade"));
 				ranking = rs.getString("quantidade");
-//				ranking.add(ativo);
 			}
 			
-//			rs.close();
-//			stm.close()
 			if(fechar) {				
 				ConnectionFactory.closeConnection();
 			}

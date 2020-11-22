@@ -36,7 +36,7 @@ public class RankingAtivos extends JFrame {
 	private JTable tabRanking;
 	private JTable table;
 	
-	public RankingAtivos() {
+	public RankingAtivos(int idUsuario) {
 		setResizable(false);
 		setTitle("Crypto Exchange");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -97,7 +97,7 @@ public class RankingAtivos extends JFrame {
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				FrmDashboard dash = new FrmDashboard(0);
+				FrmDashboard dash = new FrmDashboard(idUsuario);
 				dash.setVisible(true);
 			}
 		});

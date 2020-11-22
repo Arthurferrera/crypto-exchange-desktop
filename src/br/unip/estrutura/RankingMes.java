@@ -26,7 +26,7 @@ public class RankingMes extends JFrame {
 	private DefaultTableModel tabModel;
 	private JTable table;
 	
-	public RankingMes() {
+	public RankingMes(int idUsuario) {
 		setResizable(false);
 		setTitle("Crypto Exchange");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -58,13 +58,13 @@ public class RankingMes extends JFrame {
 		table.setEnabled(false);
 		table.setRowSelectionAllowed(false);
 		
-		// resgatando valores do dia atual até 6 dias anteriores
+		// resgatando valores do dia atual até 3 meses anteriores
 		Calendar calendar = new GregorianCalendar();
 		RelatoriosDAO rankingDAO = new RelatoriosDAO(); 
 		ArrayList<String> ranking = new ArrayList<>();  
 		for(int i = 0; i < 3; i++) {
 			
-			// a cada volta no loop, dimminui um dia, somente a partir da segunda volta
+			// a cada volta no loop, dimminui um mes, somente a partir da segunda volta
 			if(i == 0) {
 				calendar.add(Calendar.MONTH, -0);
 			} else {
@@ -73,7 +73,6 @@ public class RankingMes extends JFrame {
 			
 			String dataMenos = (calendar.get(Calendar.MONTH) + 1) + "/" + 
 					calendar.get(Calendar.YEAR);
-			// String dataMenosQuery = (calendar.get(Calendar.MONTH) + 1) + "/" + (calendar.get(Calendar.YEAR));
 
 			tabModel.addColumn(dataMenos);
 			
@@ -107,7 +106,7 @@ public class RankingMes extends JFrame {
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				FrmDashboard dash = new FrmDashboard(0);
+				FrmDashboard dash = new FrmDashboard(idUsuario);
 				dash.setVisible(true);
 			}
 		});

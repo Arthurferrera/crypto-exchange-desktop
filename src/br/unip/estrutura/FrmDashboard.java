@@ -101,7 +101,7 @@ public class FrmDashboard extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 		        // Button pressed logic goes here
 				setVisible(false);
-				RankingAtivos rankingAtivos = new RankingAtivos();
+				RankingAtivos rankingAtivos = new RankingAtivos(idUsuario);
 				rankingAtivos.setVisible(true);
 		    }
 		});
@@ -115,7 +115,7 @@ public class FrmDashboard extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 		        // Button pressed logic goes here
 				setVisible(false);
-				RankingRegiao rankingRegiao = new RankingRegiao();
+				RankingRegiao rankingRegiao = new RankingRegiao(idUsuario);
 				rankingRegiao.setVisible(true);
 		    }
 		});
@@ -129,7 +129,7 @@ public class FrmDashboard extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 		        // Button pressed logic goes here
 				setVisible(false);
-				RankingDia rankingDia = new RankingDia();
+				RankingDia rankingDia = new RankingDia(idUsuario);
 				rankingDia.setVisible(true);
 		    }
 		});
@@ -143,7 +143,7 @@ public class FrmDashboard extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 		        // Button pressed logic goes here
 				setVisible(false);
-				RankingMes rankingMes = new RankingMes();
+				RankingMes rankingMes = new RankingMes(idUsuario);
 				rankingMes.setVisible(true);
 		    }
 		});

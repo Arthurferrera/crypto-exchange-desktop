@@ -26,7 +26,7 @@ public class RankingDia extends JFrame {
 	private DefaultTableModel tabModel;
 	private JTable table;
 	
-	public RankingDia() {
+	public RankingDia(int idUsuario) {
 		setResizable(false);
 		setTitle("Crypto Exchange");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -108,7 +108,7 @@ public class RankingDia extends JFrame {
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				FrmDashboard dash = new FrmDashboard(0);
+				FrmDashboard dash = new FrmDashboard(idUsuario);
 				dash.setVisible(true);
 			}
 		});

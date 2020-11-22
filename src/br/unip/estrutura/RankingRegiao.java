@@ -36,7 +36,7 @@ public class RankingRegiao extends JFrame {
 	private DefaultTableModel tabModel;
 	private JTable table;
 	
-	public RankingRegiao() {
+	public RankingRegiao(int idUsuario) {
 		setResizable(false);
 		setTitle("Crypto Exchange");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -98,7 +98,7 @@ public class RankingRegiao extends JFrame {
 		btnVoltar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				FrmDashboard dash = new FrmDashboard(0);
+				FrmDashboard dash = new FrmDashboard(idUsuario);
 				dash.setVisible(true);
 			}
 		});
