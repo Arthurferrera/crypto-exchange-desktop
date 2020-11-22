@@ -102,16 +102,6 @@ public class RankingDia extends JFrame {
 		lblNewLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		panel.add(lblNewLabel);
 		
-		
-		// buscando dados dos relatórios
-//		RelatoriosDAO rankingDAO = new RelatoriosDAO(); 
-//		ArrayList<String> ranking = new ArrayList<>();  
-//		ranking = rankingDAO.rankingDia();
-		
-//		for (RankkingRegiao rank: ranking){
-//			tabModel.addRow(new Object[]{rank.getCidade(),rank.getQuantidade()});
-//		}
-		
 		scrollPane.setViewportView(table);
 		
 		// eventos de botoes
