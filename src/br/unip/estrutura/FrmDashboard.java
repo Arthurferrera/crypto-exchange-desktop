@@ -89,7 +89,7 @@ public class FrmDashboard extends JFrame {
 			}
 		});
 		
-		JMenu mnRelatorios = new JMenu("Relátorios");
+		JMenu mnRelatorios = new JMenu("Relatórios");
 		menuBar.add(mnRelatorios);
 		
 		JMenuItem mntmAtivosMaisOperados = new JMenuItem(new AbstractAction("Ranking de Ativos") {
@@ -120,6 +120,21 @@ public class FrmDashboard extends JFrame {
 		    }
 		});
 		
+		JMenuItem mntmInvestimentosPorDia = new JMenuItem(new AbstractAction("Ranking última semana") {
+		    /**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			public void actionPerformed(ActionEvent e) {
+		        // Button pressed logic goes here
+				setVisible(false);
+				RankingDia rankingDia = new RankingDia();
+				rankingDia.setVisible(true);
+		    }
+		});
+		
+		mnRelatorios.add(mntmInvestimentosPorDia);
 		mnRelatorios.add(mntmAtivosMaisOperados);
 		mnRelatorios.add(mntmInvestimentosPorRegiao);
 		menuBar.add(mnLogout);

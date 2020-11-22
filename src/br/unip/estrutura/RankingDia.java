@@ -1,42 +1,32 @@
 package br.unip.estrutura;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTabbedPane;
-import javax.swing.JTable;
-import javax.swing.ListModel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.TitledBorder;
-import javax.swing.table.DefaultTableModel;
-
-import br.unip.dao.RelatoriosDAO;
-import br.unip.model.Cliente;
-import br.unip.model.RankkingAtivos;
-import br.unip.model.RankkingRegiao;
-
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Vector;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.awt.Font;
-import javax.swing.JList;
-import javax.swing.table.TableModel;
+import br.unip.dao.RelatoriosDAO;
+import br.unip.model.RankkingRegiao;
 
-public class RankingRegiao extends JFrame {
+public class RankingDia extends JFrame {
 	
 	private JPanel contentPane;
 	private JScrollPane scrollPane;
 	private DefaultTableModel tabModel;
 	private JTable table;
 	
-	public RankingRegiao() {
+	public RankingDia() {
 		setResizable(false);
 		setTitle("Crypto Exchange");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -46,6 +36,7 @@ public class RankingRegiao extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+
 		
 		JPanel painelLista = new JPanel();
 		painelLista.setLayout(null);
@@ -67,8 +58,37 @@ public class RankingRegiao extends JFrame {
 		table.setEnabled(false);
 		table.setRowSelectionAllowed(false);
 		
-		tabModel.addColumn("Cidade");
-		tabModel.addColumn("Quantidade de investimentos");
+		// resgatando valores do dia atual até 6 dias anteriores
+		Calendar calendar = new GregorianCalendar();
+		RelatoriosDAO rankingDAO = new RelatoriosDAO(); 
+		ArrayList<String> ranking = new ArrayList<>();  
+		for(int i = 0; i < 7; i++) {
+			
+			// a cada volta no loop, dimminui um dia, somente a partir da segunda volta
+			if(i == 0) {
+				calendar.add(Calendar.DAY_OF_MONTH, -0);
+			} else {
+				calendar.add(Calendar.DAY_OF_MONTH, -1);
+			}
+			
+			String dataMenos = calendar.get(Calendar.DAY_OF_MONTH) + "/" + 
+					(calendar.get(Calendar.MONTH) + 1);
+			String dataMenosQuery = calendar.get(Calendar.DAY_OF_MONTH) + "/" + 
+					(calendar.get(Calendar.MONTH) + 1) + "/" + (calendar.get(Calendar.YEAR));
+
+			tabModel.addColumn(dataMenos);
+			
+			// na última volta, envia-se segundo parametro como true para fechar a conexão do banco
+			if(i == 6) {
+				ranking.add(rankingDAO.rankingDia(dataMenosQuery, true));	
+			} else {
+				ranking.add(rankingDAO.rankingDia(dataMenosQuery, false));
+			}
+			
+		}
+		// adicionando os valores
+		tabModel.addRow(new Object[]{ranking.get(0), ranking.get(1), ranking.get(2), ranking.get(3), ranking.get(4), ranking.get(5), ranking.get(6)});
+
 		
 		JButton btnVoltar = new JButton("Voltar");
 		btnVoltar.setBounds(409, 269, 117, 29);
@@ -78,19 +98,19 @@ public class RankingRegiao extends JFrame {
 		panel.setBounds(6, 6, 520, 44);
 		contentPane.add(panel);
 		
-		JLabel lblNewLabel = new JLabel("Ranking de investimentos por região");
+		JLabel lblNewLabel = new JLabel("Ranking da última semana (por dia)");
 		lblNewLabel.setFont(new Font("Lucida Grande", Font.PLAIN, 20));
 		panel.add(lblNewLabel);
 		
 		
 		// buscando dados dos relatórios
-		RelatoriosDAO rankingDAO = new RelatoriosDAO(); 
-		ArrayList<RankkingRegiao> ranking = new ArrayList<>();  
-		ranking = rankingDAO.rankingRegiao();
+//		RelatoriosDAO rankingDAO = new RelatoriosDAO(); 
+//		ArrayList<String> ranking = new ArrayList<>();  
+//		ranking = rankingDAO.rankingDia();
 		
-		for (RankkingRegiao rank: ranking){
-			tabModel.addRow(new Object[]{rank.getCidade(),rank.getQuantidade()});
-		}
+//		for (RankkingRegiao rank: ranking){
+//			tabModel.addRow(new Object[]{rank.getCidade(),rank.getQuantidade()});
+//		}
 		
 		scrollPane.setViewportView(table);
 		
@@ -103,4 +123,5 @@ public class RankingRegiao extends JFrame {
 			}
 		});
 	}
+	
 }
