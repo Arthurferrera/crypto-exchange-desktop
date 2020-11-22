@@ -282,7 +282,6 @@ public class FrmUsuarios extends JFrame {
 		tabUsuarios.getColumnModel().getColumn(0).setMaxWidth(0);
 		
 		for (Usuario usuario: usuarios){
-			System.out.println(usuario.getUsuario());
 			tabModel.addRow(new Object[]{usuario.getId(),usuario.getUsuario(), usuario.getEmail()});
 		}
 		scrollPane.setViewportView(tabUsuarios);
