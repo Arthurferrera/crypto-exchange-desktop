@@ -13,6 +13,7 @@ import javax.swing.table.DefaultTableModel;
 import br.unip.dao.RelatoriosDAO;
 import br.unip.model.Cliente;
 import br.unip.model.RankkingAtivos;
+import br.unip.model.RankkingRegiao;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -67,7 +68,7 @@ public class RankingRegiao extends JFrame {
 		table.setEnabled(false);
 		table.setRowSelectionAllowed(false);
 		
-		tabModel.addColumn("Nome Ativo");
+		tabModel.addColumn("Cidade");
 		tabModel.addColumn("Quantidade de investimentos");
 		
 		JButton btnVoltar = new JButton("Voltar");
@@ -85,13 +86,11 @@ public class RankingRegiao extends JFrame {
 		
 		// buscando dados dos relatórios
 		RelatoriosDAO rankingDAO = new RelatoriosDAO(); 
-		ArrayList<RankkingAtivos> ranking = new ArrayList<>();  
-		ranking = rankingDAO.rankingAtivos();
+		ArrayList<RankkingRegiao> ranking = new ArrayList<>();  
+		ranking = rankingDAO.rankingRegiao();
 		
-		
-		
-		for (RankkingAtivos rank: ranking){
-			tabModel.addRow(new Object[]{rank.getName(),rank.getQuantidade()});
+		for (RankkingRegiao rank: ranking){
+			tabModel.addRow(new Object[]{rank.getCidade(),rank.getQuantidade()});
 		}
 		
 		scrollPane.setViewportView(table);

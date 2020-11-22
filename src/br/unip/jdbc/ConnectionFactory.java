@@ -12,7 +12,6 @@ public class ConnectionFactory {
 	private static Connection con;
 	
 	public static Connection getConnection() {
-//		String URL = "jdbc:sqlserver://localhost:1401;databaseName=dbPim";
 		String URL = "jdbc:sqlserver://localhost:1401;databaseName=dbPim";
 
 		con = null;
