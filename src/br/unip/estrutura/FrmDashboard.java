@@ -134,6 +134,21 @@ public class FrmDashboard extends JFrame {
 		    }
 		});
 		
+		JMenuItem mntmInvestimentosPorMes = new JMenuItem(new AbstractAction("Ranking últimos meses") {
+		    /**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+
+			public void actionPerformed(ActionEvent e) {
+		        // Button pressed logic goes here
+				setVisible(false);
+				RankingMes rankingMes = new RankingMes();
+				rankingMes.setVisible(true);
+		    }
+		});
+		
+		mnRelatorios.add(mntmInvestimentosPorMes);
 		mnRelatorios.add(mntmInvestimentosPorDia);
 		mnRelatorios.add(mntmAtivosMaisOperados);
 		mnRelatorios.add(mntmInvestimentosPorRegiao);

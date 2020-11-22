@@ -105,4 +105,36 @@ public class RelatoriosDAO {
 		
 		return ranking;
 	}
+	
+	public String rankingMes(String data, Boolean fechar){
+		String ranking = "0";// = new ArrayList<>();
+		
+		String sql = "select count(*) as quantidade "
+				+ "from investimentos as i "
+				+ "where FORMAT(i.data_criacao, 'MM/yyyy') = '"+data+"'";
+		
+		try {
+			PreparedStatement stm = con.prepareStatement(sql);
+			ResultSet rs = stm.executeQuery();
+			
+			while(rs.next()){
+//				RankkingRegiao ativo = new RankkingRegiao();
+//				ativo.setCidade(rs.getString("cidade"));
+//				ativo.setQuantidade(rs.getInt("quantidade"));
+				ranking = rs.getString("quantidade");
+//				ranking.add(ativo);
+			}
+			
+//			rs.close();
+//			stm.close()
+			if(fechar) {				
+				ConnectionFactory.closeConnection();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		return ranking;
+	}
 }
